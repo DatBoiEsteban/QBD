@@ -1,0 +1,9 @@
+[workspace]
+members = [
+    "client",
+    "common",
+    "network",
+    "server",
+    "ui",
+    "world"
+]
