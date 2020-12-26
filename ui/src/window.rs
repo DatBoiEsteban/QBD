@@ -1,73 +1,41 @@
-use glutin::{Api::OpenGl, ContextBuilder, ContextWrapper, GlRequest, PossiblyCurrent};
-use old_school_gfx_glutin_ext::{ContextBuilderExt, WindowInitExt, WindowUpdateExt};
-use serde::{Deserialize, Serialize};
 use winit::{
-    dpi::{LogicalSize, PhysicalPosition},
-    event::ModifiersState,
+    dpi::LogicalSize,
+    event_loop::EventLoop,
     window::{Window, WindowBuilder},
 };
 
-pub type EventLoop = winit::event_loop::EventLoop<()>;
-type ColorFormat = gfx::format::Srgba8;
-type DepthFormat = gfx::format::DepthStencil;
+use common::consts::WINDOW_TITLE;
 
+// So the settings can be serialized easily
 pub struct GameWindow {
-    pub window: ContextWrapper<PossiblyCurrent, Window>,
+    window: Window,
+    size: [u16; 2],
+    maximized: bool,
 }
+
 impl GameWindow {
-    pub fn new() -> Result<(GameWindow, EventLoop), String> {
+    pub fn new() -> (GameWindow, EventLoop<()>) {
         let event_loop = EventLoop::new();
-        let size: [u16; 2] = [1920, 1080];
-        let win_builder = WindowBuilder::new()
-            .with_title("QBD")
-            .with_inner_size(LogicalSize::new(size[0] as f64, size[1] as f64))
-            .with_maximized(true);
 
-        let (window, device, factory, win_color_view, win_depth_view) = ContextBuilder::new()
-            .with_gl(GlRequest::Specific(OpenGl, (3, 3)))
-            .with_vsync(false)
-            .with_gfx_color_depth::<ColorFormat, DepthFormat>()
-            .build_windowed(win_builder, &event_loop)
-            .map_err(|err| err.to_string())?
-            .init_gfx::<ColorFormat, DepthFormat>();
+        let _size: [u16; 2] = [1280, 720]; // add as setting
+        let _maximized = false; // add as setting
 
-        let mut this = Self { window: window };
+        let window_builder = WindowBuilder::new()
+            .with_title(WINDOW_TITLE)
+            .with_inner_size(LogicalSize::new(_size[0], _size[1]))
+            .with_maximized(_maximized);
 
-        Ok((this, event_loop))
+        let window = window_builder.build(&event_loop).unwrap();
+
+        let this = Self {
+            window: window,
+            size: _size,
+            maximized: _maximized,
+        };
+        (this, event_loop)
     }
-}
 
-#[derive(Copy, Clone, Hash, Eq, PartialEq, Debug, Serialize, Deserialize)]
-pub enum FullscreenMode {
-    Exclusive,
-    #[serde(other)]
-    Borderless,
-}
-
-impl Default for FullscreenMode {
-    fn default() -> Self {
-        FullscreenMode::Borderless
-    }
-}
-
-#[derive(PartialEq, Clone, Copy, Debug, Serialize, Deserialize)]
-#[serde(default)]
-pub struct FullScreenSettings {
-    pub enabled: bool,
-    pub mode: FullscreenMode,
-    pub resolution: [u16; 2],
-    pub bit_depth: Option<u16>,
-    pub refresh_rate: Option<u16>,
-}
-
-impl Default for FullScreenSettings {
-    fn default() -> Self {
-        Self {
-            enabled: false,
-            mode: FullscreenMode::Borderless,
-            resolution: [1920, 1080],
-            bit_depth: None,
-            refresh_rate: None,
-        }
+    pub fn window(&self) -> &Window {
+        &self.window
     }
 }

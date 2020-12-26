@@ -7,14 +7,12 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+common = {package = "common", path = "../common"}
 
 # Graphics
-winit = { version = "0.23.0", features = ["serde"] }
-glutin = "0.25.1"
-gfx = "0.18.2"
-gfx_device_gl = {version = "0.16.2", optional = true}
-gfx_gl = {version = "0.6.1", optional = true}
-old_school_gfx_glutin_ext = "0.25"
+winit = { version = "0.24.0", features = ["serde"] }
+glutin = { version = "0.26.0" }
 
 # Serde
-serde = { version = "1.0", features = ["derive"] }
+serde = { version = "1.0.118", features = ["derive"] }
+
