@@ -1,4 +1,4 @@
-use ui::window::GameWindow;
+use game_window::window::GameWindow;
 use winit::{
     event::{Event, WindowEvent},
     event_loop::ControlFlow,

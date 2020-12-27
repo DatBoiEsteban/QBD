@@ -2,8 +2,8 @@
 members = [
     "client",
     "common",
+    "game_window",
     "network",
     "server",
-    "ui",
     "world"
 ]

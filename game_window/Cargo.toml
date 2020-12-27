@@ -1,5 +1,5 @@
 [package]
-name = "ui"
+name = "game_window"
 version = "0.1.0"
 authors = ["Esteban Mata <esteban1113001@gmail.com>"]
 edition = "2018"

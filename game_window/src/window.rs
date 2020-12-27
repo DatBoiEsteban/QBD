@@ -1,10 +1,10 @@
+use crate::settings::Settings;
+use common::consts::WINDOW_TITLE;
 use winit::{
     dpi::LogicalSize,
     event_loop::EventLoop,
     window::{Window, WindowBuilder},
 };
-
-use common::consts::WINDOW_TITLE;
 
 // So the settings can be serialized easily
 pub struct GameWindow {
@@ -16,26 +16,35 @@ pub struct GameWindow {
 impl GameWindow {
     pub fn new() -> (GameWindow, EventLoop<()>) {
         let event_loop = EventLoop::new();
+        let settings = Settings::load();
 
-        let _size: [u16; 2] = [1280, 720]; // add as setting
-        let _maximized = false; // add as setting
+        let size = settings.graphics().window_size();
+        let maximized = settings.graphics().maximized();
 
         let window_builder = WindowBuilder::new()
             .with_title(WINDOW_TITLE)
-            .with_inner_size(LogicalSize::new(_size[0], _size[1]))
-            .with_maximized(_maximized);
+            .with_inner_size(LogicalSize::new(size[0], size[1]))
+            .with_maximized(maximized);
 
         let window = window_builder.build(&event_loop).unwrap();
 
         let this = Self {
-            window: window,
-            size: _size,
-            maximized: _maximized,
+            window,
+            size,
+            maximized,
         };
         (this, event_loop)
     }
 
     pub fn window(&self) -> &Window {
         &self.window
+    }
+
+    pub fn size(&self) -> [u16; 2] {
+        self.size
+    }
+
+    pub fn maximized(&self) -> bool {
+        self.maximized
     }
 }
