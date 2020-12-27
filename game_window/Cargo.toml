@@ -17,6 +17,8 @@ common = {package = "common", path = "../common"}
 # Graphics
 winit = { version = "0.24.0", features = ["serde"] }
 gfx-hal = "0.6.0"
+arrayvec = "0.5.2"
+shaderc = "0.7.0"
 
 # Serde
 serde = { version = "1.0.118", features = ["derive"] }

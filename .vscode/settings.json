@@ -1,4 +1,3 @@
 {
     "rust-analyzer.debug.engine": "vadimcn.vscode-lldb",
-    "rust-analyzer.cargo.allFeatures": true
 }
