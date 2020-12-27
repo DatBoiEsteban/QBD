@@ -1,8 +1,7 @@
-use crate::settings::Settings;
+use crate::{settings::Settings, types::EventLoop};
 use common::consts::WINDOW_TITLE;
 use winit::{
     dpi::LogicalSize,
-    event_loop::EventLoop,
     window::{Window, WindowBuilder},
 };
 
@@ -14,9 +13,8 @@ pub struct GameWindow {
 }
 
 impl GameWindow {
-    pub fn new() -> (GameWindow, EventLoop<()>) {
+    pub fn new(settings: &Settings) -> (GameWindow, EventLoop) {
         let event_loop = EventLoop::new();
-        let settings = Settings::load();
 
         let size = settings.graphics().window_size();
         let maximized = settings.graphics().maximized();
@@ -26,7 +24,9 @@ impl GameWindow {
             .with_inner_size(LogicalSize::new(size[0], size[1]))
             .with_maximized(maximized);
 
-        let window = window_builder.build(&event_loop).unwrap();
+        let window = window_builder
+            .build(&event_loop)
+            .expect("Could not create Window");
 
         let this = Self {
             window,

@@ -1,20 +1,13 @@
-use game_window::window::GameWindow;
-use winit::{
-    event::{Event, WindowEvent},
-    event_loop::ControlFlow,
-};
+use game_window::{global_state::GlobalState, run::run, settings::Settings, window::GameWindow};
 
 fn main() {
-    let (game_window, event_loop) = GameWindow::new();
+    let settings = Settings::load();
+    let (game_window, event_loop) = GameWindow::new(&settings);
 
-    event_loop.run(move |event, _, control_flow| {
-        *control_flow = ControlFlow::Wait;
-        match event {
-            Event::WindowEvent {
-                event: WindowEvent::CloseRequested,
-                window_id,
-            } if window_id == game_window.window().id() => *control_flow = ControlFlow::Exit,
-            _ => (),
-        }
-    })
+    let game_state: GlobalState = GlobalState {
+        settings,
+        window: game_window,
+    };
+
+    run(game_state, event_loop);
 }

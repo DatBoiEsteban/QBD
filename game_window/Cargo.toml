@@ -4,15 +4,37 @@ version = "0.1.0"
 authors = ["Esteban Mata <esteban1113001@gmail.com>"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[features]
+default = []
+metal = ["gfx-backend-metal"]
+dx12 = ["gfx-backend-dx12"]
+vulkan = ["gfx-backend-vulkan"]
+gl = ["gfx-backend-gl"]
 
 [dependencies]
 common = {package = "common", path = "../common"}
 
 # Graphics
 winit = { version = "0.24.0", features = ["serde"] }
-glutin = { version = "0.26.0" }
+gfx-hal = "0.6.0"
 
 # Serde
 serde = { version = "1.0.118", features = ["derive"] }
 
+
+
+[dependencies.gfx-backend-vulkan]
+version = "0.6.5"
+optional = true
+
+[dependencies.gfx-backend-gl]
+version = "0.6.1"
+optional = true
+
+[target.'cfg(target_os = "macos")'.dependencies.gfx-backend-metal]
+version = "0.6.5"
+optional = true
+
+[target.'cfg(windows)'.dependencies.gfx-backend-dx12]
+version = "0.6.13"
+optional = true
