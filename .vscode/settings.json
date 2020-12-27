@@ -1,3 +1,7 @@
 {
     "rust-analyzer.debug.engine": "vadimcn.vscode-lldb",
+    "rust-analyzer.checkOnSave.command": "clippy", 
+    "editor.formatOnSave": true, 
+    "editor.defaultFormatter": "matklad.rust-analyzer", 
+    "rust-analyzer.updates.channel": "nightly"
 }
