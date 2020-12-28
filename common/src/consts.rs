@@ -1,1 +1,1 @@
-pub const WINDOW_TITLE: &str = "QBD";
+pub const APP_NAME: &str = "QBD";
