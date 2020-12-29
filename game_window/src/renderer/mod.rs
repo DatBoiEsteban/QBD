@@ -1,16 +1,25 @@
-use back::Backend;
-#[cfg(feature = "dx12")]
-use gfx_backend_dx12 as back;
-#[cfg(feature = "metal")]
-use gfx_backend_metal as back;
-//#[cfg(feature = "vulkan")]
-use gfx_backend_vulkan as back;
-
 use crate::{
     settings::Settings,
     types::{EventLoop, LogicalSize, PhysicalSize},
 };
 use common::consts::APP_NAME;
+
+#[cfg(feature = "dx12")]
+use gfx_backend_dx12 as back;
+#[cfg(any(
+    not(feature = "dx12"),
+    not(feature = "gl"),
+    not(feature = "metal"),
+    not(feature = "vulkan")
+))]
+use gfx_backend_empty as back;
+#[cfg(feature = "gl")]
+use gfx_backend_gl as back;
+#[cfg(feature = "metal")]
+use gfx_backend_metal as back;
+#[cfg(feature = "vulkan")]
+use gfx_backend_vulkan as back;
+
 use gfx_hal::{
     adapter::Adapter,
     command::{ClearColor, ClearValue, CommandBuffer, CommandBufferFlags, Level, SubpassContents},

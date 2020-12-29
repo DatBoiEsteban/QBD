@@ -565,6 +565,7 @@ dependencies = [
  "arrayvec",
  "common",
  "gfx-backend-dx12",
+ "gfx-backend-empty",
  "gfx-backend-gl",
  "gfx-backend-metal",
  "gfx-backend-vulkan",
@@ -603,6 +604,17 @@ dependencies = [
  "smallvec 1.5.1",
  "spirv_cross",
  "winapi 0.3.9",
+]
+
+[[package]]
+name = "gfx-backend-empty"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2085227c12b78f6657a900c829f2d0deb46a9be3eaf86844fde263cdc218f77c"
+dependencies = [
+ "gfx-hal",
+ "log",
+ "raw-window-handle",
 ]
 
 [[package]]

@@ -80,21 +80,6 @@
                 "gl"
             ],
             "group": "build"
-        },
-        {
-            "label": "Run When no feature is ON",
-            "type": "shell",
-            "command": "cargo",
-            "problemMatcher": "$rustc",
-            "options": {
-                "cwd": "${workspaceFolder}/game_window"
-            },
-            "args": [
-                "run",
-                "--bin",
-                "game_window",
-            ],
-            "group": "build"
         }
     ]
 }

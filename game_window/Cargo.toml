@@ -8,7 +8,7 @@ edition = "2018"
 default = []
 metal = ["gfx-backend-metal"]
 dx12 = ["gfx-backend-dx12"]
-#vulkan = ["gfx-backend-vulkan"]
+vulkan = ["gfx-backend-vulkan"]
 gl = ["gfx-backend-gl"]
 
 [dependencies]
@@ -20,17 +20,13 @@ gfx-hal = "0.6.0"
 arrayvec = "0.5.2"
 shaderc = "0.7.0"
 
-#REMOVE
-gfx-backend-vulkan = "0.6.5"
-
 # Serde
 serde = { version = "1.0.118", features = ["derive"] }
 
 
-
-#[dependencies.gfx-backend-vulkan]
-#version = "0.6.5"
-#optional = true
+[dependencies.gfx-backend-vulkan]
+version = "0.6.5"
+optional = true
 
 [dependencies.gfx-backend-gl]
 version = "0.6.1"
@@ -43,3 +39,7 @@ optional = true
 [target.'cfg(windows)'.dependencies.gfx-backend-dx12]
 version = "0.6.13"
 optional = true
+
+# DELETE WHEN READY (?)
+[dependencies.gfx-backend-empty]
+version = "0.6.0"
